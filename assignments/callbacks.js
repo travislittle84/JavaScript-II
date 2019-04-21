@@ -22,43 +22,49 @@ const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
   //   console.log(first)
   // });
 
-
-function getLength(items, cb) {
+function getLength(arr, cb) {
   // getLength passes the length of the array into the callback.
-  return cb(items.getLength);
-}
-
+  let arrlength = arr.length;
+  return cb(arrlength);
+};
 getLength(items, function(length) {
   console.log(length);
-})
-
-/////////////////////////////////
-
-// const add = (num1, num2) => {
-//   return num1 + num2;
-// }
-// const doMath = (num1, num2, cb) => {
-//   return cb(num1,num2);
-// }
-// console.log(`Math: ${doMath(2,6,add)}`);
+});
 
 function last(arr, cb) {
   // last passes the last item of the array into the callback.
+  // let lastIndex = arr.length;
+  return cb(arr[arr.length - 1]);
 }
+last(items, function(thelast){
+  console.log(thelast); // Should be Gum
+})
 
 function sumNums(x, y, cb) {
   // sumNums adds two numbers (x, y) and passes the result to the callback.
+  return cb(x + y);
 }
+sumNums(22, 82, function(sum){
+  console.log(`Sum: ${sum}`);
+});
 
 function multiplyNums(x, y, cb) {
   // multiplyNums multiplies two numbers and passes the result to the callback.
+  return cb(x * y);
 }
+multiplyNums(4, 6, product => console.log(`Multiply: ${product}`)); // Arrow function!
 
 function contains(item, list, cb) {
   // contains checks if an item is present inside of the given array/list.
   // Pass true to the callback if it is, otherwise pass false.
-}
+  let match =  false;
+  list.forEach(function(thing){
+    if(thing == item) match = true;  
+  });
+  cb(match);
+};
 
+contains('Gum',items, result => console.log(`Result: ${result}`)); // Should be true
 /* STRETCH PROBLEM */
 
 function removeDuplicates(array, cb) {
