@@ -74,17 +74,43 @@ console.log(largeShirts);
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations into a ticketPriceTotal array and log the result
 
-/* TO DO */
-
 let ticketPriceTotal = [];
-ticketPriceTotal = runners.reduce(runner => runner.ticketPriceTotal += ticketPriceTotal)
-console.log(ticketPriceTotal);
+ticketPriceTotal = runners.reduce((total, runner) => {
+    return total += runner.donation;
+}, 0);
+console.log(`All donations: ${ticketPriceTotal}`);
 
 // ==== Challenge 5: Be Creative ====
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
-// Problem 1
+// Problem 1 - Marketing wants an email list. Create new array with email addresses
+let emailList = [];
+emailList = runners.map(runner => runner.email);
+console.log(emailList);
 
-// Problem 2
+// Problem 2 - Marketing wants to know the companies who donated higher than the average donation
+let averageDonation = ticketPriceTotal / runners.length;
+let largeDonationCompanies = runners.filter(runner => runner.donation > averageDonation);
+console.log(`average donation: ${averageDonation}`)
+console.log(largeDonationCompanies);
 
-// Problem 3
+// Problem 3 - the CEO "doesn't trust" the government, so he wants to reject their application and return their money. First create a new array of runners with edu and gov email addresses. Add up the donations we'll be returning. Then REMOVE the applicants from the runners array entirely.
+
+
+let runnersToRemove = runners.filter(runner => runner.email.indexOf('.gov') != -1);
+let returnDonationTotal = runnersToRemove.reduce((total,govRunner) => {
+    return total += govRunner.donation;
+},0);
+
+console.log(runnersToRemove);
+console.log(`Donations to return: ${returnDonationTotal}`);
+
+runners.forEach(function(runner){
+    if (runner.email.indexOf('.gov') != -1){
+        console.log(`Removing: ${runner.first_name}`);
+        indexToDelete = runners.splice(runner,1);
+    }
+});
+console.log(runners);
+
+
